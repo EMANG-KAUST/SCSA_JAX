@@ -347,7 +347,7 @@ if __name__ == "__main__":
 
     dt = 1
     #two different test cases
-    mu = 0
+    mu = 20
     #mu = None
     print("Computing SCSA for the clean potential: ")
     yscsa_clean, kappas, Nh, psinNorm, cf_clean = compute_scsa_denoising(y, fs,

@@ -59,7 +59,7 @@ def gen_sig(M:int, L:int, sig_type:int, noise:bool = False):
             dt = (b - a) / (M-1)
             t = jnp.arange(a, b, dt)
             f0 = 1
-            y = jnp.sin(2*jnp.pi*f0*t)
+            y = jnp.sin(2*jnp.pi*f0*t)+2
             if noise:
                 n = 0.1*random.normal(key, shape = (len(y), ))
                 y = y + n
@@ -342,7 +342,7 @@ if __name__ == "__main__":
     # D = construct_matrix(n, fs, fsh)
     # print(D)
     M, L = 512, 8*jnp.pi
-    sig_type = 3
+    sig_type = 2
     x, y = gen_sig(M, L, sig_type)
     x, y_noise = gen_sig(M, L, sig_type, noise = True)
     fs = 1
@@ -375,6 +375,10 @@ if __name__ == "__main__":
 
     stats = pstats.Stats(prof).strip_dirs().sort_stats("cumtime")
     stats.print_stats(50) # top 10 rows
+    
+    with open('Results/JAX/profile_results_jax_'+str(sig_type)+'.txt', 'w') as f:
+        stats = pstats.Stats(prof, stream=f).strip_dirs().sort_stats("cumtime")
+        stats.print_stats()
 
     plt.plot(cf_noise, label = "Noised Cost Function")
     plt.legend()

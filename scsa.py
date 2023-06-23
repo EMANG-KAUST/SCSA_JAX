@@ -112,8 +112,8 @@ def construct_matrix(n:int, fs:float = 1):
         test_bx = -(-1)**(D) * .5 / sines
         test_tx = -(-1)**(-D) * .5 / msines
     else:
-        sines = jnp.sin(D*fsh*0.5)**2
-        msines = jnp.sin(-D*fsh*0.5)**2
+        sines = jnp.sin(D*fsh*0.5)
+        msines = jnp.sin(-D*fsh*0.5)
         dx = -aux_cte_1 - (1/12) * aux_2
         test_bx = -0.5*((-1)**D) * (jnp.tan(D*fsh*0.5)**-1) / sines
         test_tx = -0.5*((-1)**(-D)) * (jnp.tan((-D)*fsh*0.5)**-1) / msines

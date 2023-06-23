@@ -311,13 +311,16 @@ def compute_hsearch(y, dt = 1, method = "else"):
     y = jnp.real(y)
     y_max = y.max()
     if method == "uniform":
-        hh = jnp.arange(1, 30, dt)
+        hh = jnp.arange(1, 100, dt)
     elif method == "evangelos_" :
         #Evangelos Search
         h_min, h_max = h_bounds_evangelos(y, dt)
-        hh = jnp.arange(h_min, h_max, dt)
+        if h_max > 100:
+            factor = h_max // 100
+        hh = jnp.arange(h_min, h_max, factor * 1)
     else:
         h_min = (dt/jnp.pi)*jnp.sqrt(y.max())
+        dt = 0.05
         hh = jnp.arange(h_min, y_max, dt)
 
     return hh
